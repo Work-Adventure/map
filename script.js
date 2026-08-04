@@ -35,7 +35,7 @@ WA.onInit().then(() => {
     WA.room.area.onEnter("meeting-room").subscribe(() => {
         WA.ui.modal.openModal({
             title: "Camera Reminder",
-            src: "https://mytuangrat.github.io/workadv-map/camera-reminder.html",
+            src: "https://digitalstark-system.github.io/work-adventure/camera-reminder.html",
             position: "center",
             allowApi: true,
             allowFullScreen: false
