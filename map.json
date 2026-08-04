@@ -185,6 +185,12 @@
  "nextlayerid":6,
  "nextobjectid":2,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"script",
+         "type":"string",
+         "value":"https:\/\/work-adventure.github.io\/map\/script.js"
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.12.2",
  "tileheight":32,
