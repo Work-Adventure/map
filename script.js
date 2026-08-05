@@ -30,6 +30,4 @@ WA.onInit().then(() => {
         .then(() => console.log("✅ ส่งข้อมูล meeting_room สำเร็จ"))
         .catch((err) => console.error("❌ ส่งข้อมูลไม่สำเร็จ", err));
     });
-        });
-    });
 });
