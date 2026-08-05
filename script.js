@@ -30,15 +30,6 @@ WA.onInit().then(() => {
         .then(() => console.log("✅ ส่งข้อมูล meeting_room สำเร็จ"))
         .catch((err) => console.error("❌ ส่งข้อมูลไม่สำเร็จ", err));
     });
-
-    // ✅ Modal เตือนให้เปิดกล้อง (เด้งกลางจอ ขนาดใหญ่ ไม่ขึ้นกับ zoom)
-    WA.room.area.onEnter("meeting-room").subscribe(() => {
-        WA.ui.modal.openModal({
-            title: "Camera Reminder",
-            src: "https://digitalstark-system.github.io/work-adventure/camera-reminder.html",
-            position: "center",
-            allowApi: true,
-            allowFullScreen: false
         });
     });
 });
