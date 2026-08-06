@@ -4,7 +4,7 @@ WA.onInit().then(() => {
     console.log("✅ สคริปต์โหลดแล้ว ผู้เล่นคือ: " + WA.player.name);
 
     // ✅ ส่งข้อมูล login
-    fetch("https://workadventuremap.onrender.com/log", {
+    fetch("https://work-adventure-map.onrender.com/log", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
