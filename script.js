@@ -19,7 +19,7 @@ WA.onInit().then(() => {
     WA.room.area.onEnter("meeting-room").subscribe(() => {
         console.log("🏢 เข้าห้องประชุมแล้ว: " + WA.player.name);
 
-        fetch("https://workadventuremap.onrender.com/log", {
+        fetch("https://work-adventure-map.onrender.com/log", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
