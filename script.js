@@ -1,34 +1,39 @@
-// script.js - ระบบเช็คคนเข้าเว็บ
-WA.onInit().then(async () => {
-    console.log("✅ สคริปต์โหลดแล้ว ผู้เล่นคือ: " + WA.player.name);
+// ✅ เปลี่ยนตรงนี้เป็น URL จริงของ Render backend (workadventure-server.js ที่ deploy แล้ว)
+const BACKEND_URL = "https://wa-login-logs.onrender.com/log";
 
-    // ✅ ส่งข้อมูล login ก่อน แล้วรอให้เสร็จ ค่อยเปิดการเช็ค meeting room
-    try {
-        await fetch("https://work-adventure-map.onrender.com/log", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                name: WA.player.name,
-                type: "login"
-            })
-        });
-        console.log("✅ ส่งข้อมูล login สำเร็จ");
-    } catch (err) {
-        console.error("❌ ส่งข้อมูล login ไม่สำเร็จ", err);
-    }
+// ✅ ชื่อโซน Meeting Room ตามที่ตั้งไว้ใน Tiled (object ที่ตั้ง Class เป็น "area")
+const MEETING_ROOM_AREA = "meeting-room";
 
-    // ✅ เช็คตอนเดินเข้าโซน Meeting Room (ทำงานหลัง login เสมอ)
-    WA.room.area.onEnter("meeting-room").subscribe(() => {
-        console.log("🏢 เข้าห้องประชุมแล้ว: " + WA.player.name);
-        fetch("https://work-adventure-map.onrender.com/log", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                name: WA.player.name,
-                type: "meeting_room"
-            })
-        })
-        .then(() => console.log("✅ ส่งข้อมูล meeting_room สำเร็จ"))
-        .catch((err) => console.error("❌ ส่งข้อมูล meeting_room ไม่สำเร็จ", err));
-    });
+let hasLoggedInToday = false;
+
+WA.onInit().then(() => {
+  console.log("✅ WorkAdventure script initialized");
+
+  // ✅ ยิง login ครั้งเดียวตอนเข้าห้อง (กันยิงซ้ำถ้า script รันมากกว่า 1 ครั้งในเซสชันเดียว)
+  sendLog("login");
+
+  // ✅ ดักตอนเข้าโซน Meeting Room (โซนนี้เป็น object class "area" ใน Tiled ไม่ใช่ tile layer
+  // จึงต้องใช้ WA.room.area.onEnter แทน WA.room.onEnterLayer)
+  WA.room.area.onEnter(MEETING_ROOM_AREA).subscribe(() => {
+    console.log("🏢 Entered meeting room zone");
+    sendLog("meeting_room");
+  });
+
+}).catch((err) => {
+  console.error("❌ WA.onInit() failed:", err);
 });
+
+async function sendLog(type) {
+  try {
+    const name = WA.player.name;
+    const res = await fetch(BACKEND_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, type }),
+    });
+    const data = await res.json();
+    console.log(`📩 sendLog(${type}) ->`, data);
+  } catch (err) {
+    console.error(`❌ sendLog(${type}) failed:`, err);
+  }
+}
