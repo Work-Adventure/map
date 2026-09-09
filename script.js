@@ -1,5 +1,5 @@
 // ✅ เปลี่ยนตรงนี้เป็น URL จริงของ Render backend (workadventure-server.js ที่ deploy แล้ว)
-const BACKEND_URL = "https://wa-login-logs.onrender.com/log";
+const BACKEND_URL = "https://wa-login-logs-3q0j.onrender.com/log";
 
 // ✅ ชื่อโซน Meeting Room ตามที่ตั้งไว้ใน Tiled (object ที่ตั้ง Class เป็น "area")
 const MEETING_ROOM_AREA = "meeting-room";
