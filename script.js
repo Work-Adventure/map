@@ -37,3 +37,21 @@ async function sendLog(type) {
     console.error(`❌ sendLog(${type}) failed:`, err);
   }
 }
+WA.onInit().then(async () => {
+    console.log("✅ WorkAdventure script initialized");
+
+    await sendLog("login");
+    await sendLog("meeting_room");
+
+    WA.room.area.onEnter(MEETING_ROOM_AREA).subscribe(() => {
+        console.log("🏢 Entered meeting room zone");
+        sendLog("meeting_room");
+    });
+
+    // ✅ ส่ง heartbeat ทุก 30 นาที กันเคส "ค้างในระบบ" ไม่เด้งชื่อ
+    setInterval(() => {
+        sendLog("heartbeat");
+    }, 30 * 60 * 1000);
+}).catch((err) => {
+    console.error("❌ WA.onInit() failed:", err);
+});
