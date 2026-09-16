@@ -55,3 +55,6 @@ WA.onInit().then(async () => {
 }).catch((err) => {
     console.error("❌ WA.onInit() failed:", err);
 });
+WA.state.onVariableChange("forceReload").subscribe(() => {
+    location.reload();
+});
